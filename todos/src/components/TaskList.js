@@ -1,18 +1,26 @@
 import React, {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {addTodo} from '../actions/todos';
+import {addTask, deleteTask} from '../actions/tasks';
 
-export default function TodoList(){
+export default function TaskList(){
     const [todos, setTodo] = useState('');
     const [taskPrice, setPrice] = useState(0);
-    const todosStore = useSelector(state => state.todos.data) 
+    const tasksStore = useSelector(state => state.tasks.data) 
     
     
     const dispatch = useDispatch();
 
+    function handleDelete(id){
+        const newStore = tasksStore.filter(elem => elem.id !== id )
+        const filteredTask = tasksStore.filter(elem => elem.id === id)
+        const price = filteredTask[0].payment
+        
+        dispatch(deleteTask(newStore, price))
+    }
+
     function handleSubmit(event){
         event.preventDefault();
-        dispatch(addTodo(todos, taskPrice));
+        dispatch(addTask(todos, taskPrice));
 
         setTodo('');
         setPrice(0);
@@ -20,13 +28,26 @@ export default function TodoList(){
 
     return(
         <div>
-            <ul>{todosStore.map(todo => 
-                <li key={todo.id}>{todo.text}  R${todo.payment}</li>
+        
+       
+            <ul>{tasksStore.length !== 0 ? tasksStore.map(task => 
+                <li key={task.id}>{task.text}  R${task.payment} 
+                
+                <button onClick={() => handleDelete(task.id)}> delete</button>
+                
+                </li>
             
                 )
+                : 
+                
+                    <li></li>
+                
+                    
             }
                 
-            </ul>
+            </ul>  
+            
+
             <form >
                 <input type='text'
                         value={todos}
@@ -41,6 +62,7 @@ export default function TodoList(){
                 />
                 <button type='submit' onClick={handleSubmit}>Add</button>
             </form>
+        
         </div>
     )
 }

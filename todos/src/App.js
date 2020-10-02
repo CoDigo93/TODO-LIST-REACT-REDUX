@@ -1,7 +1,7 @@
 import React from 'react';
-import TodoList from './components/TodoList'
 import Counter from './components/counter'
 import Total from './components/total'
+import TaskList from './components/TaskList';
 
 
 
@@ -10,7 +10,7 @@ export default function App() {
    
   return (
     <>
-    <TodoList/>
+    <TaskList/>
     <br></br>  
     <Counter/>
     <Total/>

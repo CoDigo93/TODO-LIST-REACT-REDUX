@@ -1,9 +1,9 @@
 import {combineReducers} from 'redux';
 
-import todos from './todos';
+import tasks from './tasks';
 import total from './total';
 
 export default combineReducers({
-    todos,
+    tasks,
     total
 });

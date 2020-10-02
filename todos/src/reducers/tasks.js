@@ -3,16 +3,20 @@ const INITIAL_STATE = {
   
 };
 
-export default function todos(state = INITIAL_STATE, action){
+export default function tasks(state = INITIAL_STATE, action){
     switch(action.type){
-        case 'ADD_TODO':
+        case 'ADD_TASK':
             return {data:[...state.data, { 
                 id:Math.random(), 
                 text:action.text, 
                 payment:action.price 
             }] 
-            
         }
+        case 'DELETE_TASK':
+            return {
+                data:action.store,
+                price:action.price    
+            }
 
         default:
             return state;
